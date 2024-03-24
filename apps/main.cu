@@ -3,6 +3,8 @@
 #include <neuralnetwork/ReLULayer.h>
 #include <neuralnetwork/SigmoidLayer.h>
 
+#include <utils/MNISTDataset.h>
+
 #include <vector>
 
 int main(int argc, char* argv[])
@@ -11,6 +13,12 @@ int main(int argc, char* argv[])
   const int num_epochs = 1000000;
 
   NeuralNetwork net;
+  MNISTDataset train_dataset;
+  std::string data_path = "data/mnist_train.csv"; 
+  train_dataset.loadFile(data_path);
+
+  DataPoint p = train_dataset[0];
+
 
   int num_layers = 10;
 
@@ -29,22 +37,6 @@ int main(int argc, char* argv[])
 
   Matrix Y_(1, input_length, 0.0f);
   Matrix dY(1, input_length, 0.0f);
-
-  std::vector<std::vector<double>> p1 = {{0.1,0.2,0.3,0.4}};
-
-  
-  Matrix X1(1, input_length, 0.0f);
-
-  X1.setValues(p1);
-
-  Matrix Y1(1, 1, 0.0f);
-
-  std::vector<std::vector<double>> p2 = {{0.5,0.6,0.7,0.8}};
-
-  Matrix X2(1, input_length, 0.0f);
-  X2.setValues(p2);
-
-  Matrix Y2(1, 1, 1.0f);
 
   float loss1 = 0.0f;
   float loss2 = 0.0f;

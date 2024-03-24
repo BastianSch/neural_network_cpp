@@ -1,5 +1,5 @@
 # Simple Neural Network using C++ (and CUDA)
-using this [Repo] (https://github.com/akalicki/matrix) for Matrix operations   
+using https://github.com/akalicki/matrix for Matrix operations   
 ## BUILD with CMAKE
 Configuration  
 ```
