@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <utils/Matrix.h>
+#include <utils/InvalidShapeException.h>
 
 #define EPS 1e-10
 
@@ -174,6 +175,17 @@ Matrix Matrix::operator^(int num)
     Matrix temp(*this);
     return expHelper(temp, num);
 }
+
+Matrix& Matrix::hadamard(const Matrix& m)
+{
+    for (int i = 0; i < rows_; ++i) {
+        for (int j = 0; j < cols_; ++j) {
+            p[i][j] *= m.p[i][j];
+        }
+    }
+    return *this;
+}
+
 
 void Matrix::swapRows(int r1, int r2)
 {
@@ -558,6 +570,27 @@ Matrix operator/(const Matrix& m, double num)
 {
     Matrix temp(m);
     return (temp /= num);
+}
+
+bool operator==(const Matrix& lhs, const Matrix& rhs)
+{
+    if(lhs.getCols() != rhs.getCols())
+    {
+        throw InvalidShapeException("Cols not equal");
+    }
+    else if (lhs.getRows() != rhs.getRows())
+    {
+        throw InvalidShapeException("Rows not equal");
+    }
+    for(int r = 0; r < lhs.getRows(); r++)
+    {
+        for(int c = 0; c < lhs.getCols(); c++)
+        {
+            if(lhs.p[r][c] != rhs.p[r][c]) 
+                return false;
+        }
+    }
+    return true;
 }
 
 ostream& operator<<(ostream& os, const Matrix& m)

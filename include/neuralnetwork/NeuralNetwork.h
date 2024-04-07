@@ -12,4 +12,7 @@ public:
     void addLayer(Layer* layer);
     Matrix forward(const Matrix& X);
     void backward(Matrix& dY, const Matrix& X, float learning_rate);
+
+    friend std::ostream& operator<<(std::ostream&, const NeuralNetwork&);
+
 };

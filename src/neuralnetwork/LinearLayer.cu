@@ -15,17 +15,17 @@ Matrix LinearLayer::forward(const Matrix& X)
   //std::cout << "W:\n" << *this->W;
   //Matrix res(X.getRows(), X.getCols(), 0.0f);
   Matrix res = X * *this->W;
-  //std::cout << "Res1:\n" << res;
+  std::cout << "Res1: " << res.getRows() << " " << res.getCols() << "\n" << res;
 
   res = res + *this->b;
-  //std::cout << "Res OUT:\n" << res;
+  std::cout << "Res OUT: " << res.getRows() << " " << res.getCols() << "\n" << res;
 
   return res;
 }
 
 Matrix LinearLayer::backprop(Matrix& dZ, const Matrix& X, float learning_rate)
 {
-  //std::cout << "backpropagation\n" << this->getName() << "\nX:\n" << X << "\nW:\n" << *this->W << std::endl;
+  std::cout << "backpropagation\n" << this->getName() << "dZ\n" << dZ << "\nX:\n" << X << "\nW: " << this->W->getRows() << " " << this->W->getCols() << "\n" << *this->W << std::endl;
 
   /* W = W - learning_rate * d_loss/dw
    * d_loss/dw = dloss/dy(=Loss) * dy/dw

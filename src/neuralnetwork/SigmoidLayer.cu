@@ -8,14 +8,27 @@ SigmoidLayer::SigmoidLayer(std::string name)
 Matrix SigmoidLayer::forward(const Matrix& X)
 {
   Matrix res = X;
-    for(int i = 0; i < res.getRows(); i++)
+  Matrix e = X;
+
+  for(int i = 0; i < res.getRows(); i++)
+  {
+    for(int j = 0; j < res.getCols(); j++)
     {
-      for(int j = 0; j < res.getCols(); j++)
+      if (res(i,j) > 10)
       {
-        res(i, j) = 1/(1+exp(-res(i,j)));
+        res(i,j) = 10;
       }
+      else if (res(i, j) < -10)
+      {
+        res(i, j) = -10;
+      }
+      e(i, j) = exp(res(i,j));
+      res(i, j) = e(i,j)+1;
+      res(i, j) = e(i, j)/res(i,j);
+
     }
-    return X;
+  }
+  return res;
 }
 
 Matrix SigmoidLayer::backprop(Matrix& dZ, const Matrix& X, float learning_rate)
@@ -24,8 +37,6 @@ Matrix SigmoidLayer::backprop(Matrix& dZ, const Matrix& X, float learning_rate)
   Matrix m1(X.getRows(), X.getCols(), 1.0f);
   Matrix ox = this->forward(dZ);
   m1 = m1 - ox;
-  Matrix ox_T = ox.transpose();
-  m1 = ox_T * m1;
-
-  return m1.transpose();
+  m1 = ox.hadamard(m1);
+  return m1;
 }

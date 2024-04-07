@@ -31,9 +31,11 @@ class Matrix {
         Matrix& operator*=(double);
         Matrix& operator/=(double);
         Matrix  operator^(int);
+        Matrix& hadamard(const Matrix&);
         
         friend std::ostream& operator<<(std::ostream&, const Matrix&);
         friend std::istream& operator>>(std::istream&, Matrix&);
+        friend bool operator==(const Matrix&, const Matrix&);
 
         void swapRows(int, int);
         Matrix transpose();

@@ -26,7 +26,7 @@ Matrix ReLULayer::backprop(Matrix& dZ, const Matrix& X, float learning_rate)
     {
       for(int j = 0; j < dZ.getCols(); j++)
       {
-        if(dZ(i, j)<0)
+        if(dZ(i, j)<=0)
           {dZ(i, j)=0.0;}
         else
           {dZ(i, j)=1.0;}

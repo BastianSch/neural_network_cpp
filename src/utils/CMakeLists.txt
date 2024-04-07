@@ -1,4 +1,4 @@
-set(HEADER_LIST "${PROJECT_SOURCE_DIR}/include/utils/Matrix.h")
+set(HEADER_LIST "${PROJECT_SOURCE_DIR}/include/utils/Matrix.h" "${PROJECT_SOURCE_DIR}/include/utils/InvalidShapeException.h")
 
 add_library(matrix SHARED Matrix.cu ${HEADER_LIST})
 
