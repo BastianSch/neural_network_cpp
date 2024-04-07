@@ -12,8 +12,6 @@ Matrix NeuralNetwork::forward(const Matrix& X)
     for (auto const& layer : layers)
     {
         res = layer->forward(res);
-        
-        std::cout << layer->getName() << " " << res << "\n";
     }
 
     return res;

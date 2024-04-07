@@ -19,6 +19,24 @@ public:
   BasicLayerTest(): mat0(3,3,0.0), mat1(3,3,1.0), mat_1(3,3,-1.0), layer_relu("relu"), layer_sigmoid("sigmoid"){};
 };
 
+TEST_F(BasicLayerTest, matmul)
+{
+  Matrix res = mat1*mat1;
+  Matrix mat3(3,3,3.0);
+  EXPECT_EQ(res, mat3);
+
+  Matrix mat1_10(1, 10, 1.0);
+  Matrix mat10_1(10, 1, 1.0);
+  Matrix mat11(1,1, 10.0);
+  Matrix mat1010(10,10,1.0);
+  
+  Matrix res1 = mat1_10*mat10_1;
+  EXPECT_EQ(res1, mat11);
+
+  Matrix res2 = mat10_1*mat1_10;
+  EXPECT_EQ(res2, mat1010);
+}
+
 TEST_F(BasicLayerTest, reluforward) {
   Matrix res = layer_relu.forward(mat0);
   EXPECT_EQ(res, mat0);

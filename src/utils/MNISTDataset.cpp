@@ -17,10 +17,10 @@ void MNISTDataset::loadFile(std::string path)
             int start = 2; // first datapoint is y
             int end = line.find(delim);
             DataPoint datapoint = {};
-            datapoint.Y = static_cast<double>(line[0] - '0')/255;
+            datapoint.Y = static_cast<double>(line[0] - '0');
             while (end != std::string::npos)
             {
-                datapoint.X.push_back(std::stoi(line.substr(start, end - start)));
+                datapoint.X.push_back((float)std::stoi(line.substr(start, end - start))/255.0f);
                 start = end + delim.length();
                 end = line.find(delim, start);
             }
